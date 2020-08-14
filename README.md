@@ -57,7 +57,7 @@
 
 6.Now opening logs.txt, just to confirm the cookies.
 
-7.the XSS never got executed in the shop admin dashboard/backend
+7.Unfortunately, the XSS never got executed in the shop admin dashboard/backend
 
 
 - [Reflected XSS  in AT&T](https://medium.com/@godofdarkness.msf/reflected-xss-in-at-t-7f1bdd10d8f7)

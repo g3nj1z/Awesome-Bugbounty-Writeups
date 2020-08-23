@@ -254,7 +254,6 @@ So on feedback.example.com/feedback we can left feedback, it forwards to another
 - [Leveraging angularjs based XSS to privilege escalation](https://www.shawarkhan.com/2019/08/leveraging-angularjs-based-xss-to-privilege-escalation.html)
 - [How I found XSS by searching in shodan](https://blog.usejournal.com/how-i-found-xss-by-searching-in-shodan-6943b799e648)
 - [Chaining caache poisining to stored XSS](https://medium.com/@nahoragg/chaining-cache-poisoning-to-stored-xss-b910076bda4f)
-- [XSS  to RCE ](https://medium.com/@hungrybytes/xss-to-rce-in-e20b2bc55f94)
 - [XSS on twitter worth 1120](https://medium.com/@bywalks/xss-on-twitter-worth-1120-914dcd28ee18)
 - [Reflected XSS in ebay.com](https://medium.com/@madguyyy/reflected-xss-in-ebay-com-60a9d61e26cd)
 - [Cookie based XSS exolpoitation 2300 bug bounty ](https://medium.com/@iSecMax/сookie-based-xss-exploitation-2300-bug-bounty-story-9bc532ffa564)

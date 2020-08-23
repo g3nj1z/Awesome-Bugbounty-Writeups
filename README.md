@@ -289,6 +289,31 @@ Sooo, lets register comapany a”><svg\onload=alert(1)> and — for all the user
 - [Bypassing XSS filter and stealing user credit card data](https://medium.com/@osamaavvan/bypassing-xss-filter-and-stealing-user-credit-card-data-100f247ed5eb)
 - [Googleplex.com blind XSS](https://websecblog.com/vulns/googleplex-com-blind-xss/)
 - [Reflected XSS on error page ](https://noobe.io/articles/2019-06/reflected-xss-on-error-page)
+
+Sometimes to exploit an XSS (specifically Reflected XSS), we are focused on finding input pages such as Search Columns, etc to find out is that form has an XSS vulnerability or not.
+
+Not infrequently, a developer is only focused on doing sanitation and filters on these attacks on pages that visitors commonly visit. It does not rule out the possibility of XSS attacks can be affected on other pages, including an Error Pages.
+
+When doing some Private Bug Hunting on Bugcrowd, I found a feature for Uploading and Downloading file. After the file is being uploaded successfully, to download the file, the user will be directed to the URL like this:
+
+    https://b15.[redacted.com]/file.php?spaceid=user@mail.com&file=filename.jpg
+
+At first, I thought the URL had an LFI or LFD vulnerability, but after trying to change the file parameters with another file, it didn’t work and gave an error message.
+
+    https://b15.[redacted.com]/file.php?spaceid=&file=../../../../etc/passwd
+
+But if you pay attention, the contents of the file parameter are reflected on the error page. Then I tried to insert an HTML tag to test whether there is a filter or not in the parameters of the file.
+
+And sure enough, HTML tags were successfully rendered on that page.
+
+    https://b15.[redacted.com]/file.php?spaceid=&file=<h1>asu
+
+Without waiting a long time, I immediately tried an XSS payload on the page, and XSS was executed!
+
+    https://b15.[redacted.com]/file.php?spaceid=&file=<img src=x onmouseover=alert(1)>
+
+Some tips for hunting Reflected XSS is to test various parameters contained in an endpoint. Either on the Front End Page or even on the Error Page.
+
 - [How I was able to get private ticket response panel and fortigate web panel via blind XSS ](https://pwnsec.ninja/2019/06/06/how-i-was-able-to-get-private-ticket-response-panel-and-fortigate-web-panel-via-blind-xss/)
 - [Unicode vs WAF](https://medium.com/bugbountywriteup/unicode-vs-waf-xss-waf-bypass-128cd9972a30)
 - [Story of URI based XSS with some simple google dorking ](https://medium.com/@nandwanajatin25/story-of-a-uri-based-xss-with-some-simple-google-dorking-e1999254aa55)

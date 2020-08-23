@@ -321,6 +321,49 @@ Some tips for hunting Reflected XSS is to test various parameters contained in a
 - [XSSed my way to 1000](https://gauravnarwani.com/xssed-my-way-to-1000/)
 - [Try harder for XSS](https://medium.com/@fbotes2/try-harder-for-xss-7aa3657255a1)
 - [From parameter pollution to XSS](https://medium.com/@momenbasel/from-parameter-pollution-to-xss-d095e13be060)
+
+I noticed that on clicking on any link on the main page it will redirect the user to a page to make sure that the user is aware that this will redirect him/her to another website. the URL looks like this: 
+
+    <redacted>/intersticial.aspx?dest=http://whitelistedWebsite.com
+ 
+I tried editing the whitelistedWebsite.com to javascript:alert(1) but it didn’t work as the URL must match the whitelisted sites. then I tried to redirect to /intersticial.aspx?dest=javascript://whitelistedWebsite.com and opened the chome devtools
+
+I concluded that the parameter accepts any scheme but a whitelisted website must be added to the scheme.
+
+example:
+
+/intersticial.aspx?dest=data://whitelistedWebsite.com → Accepted
+
+/intersticial.aspx?dest=http://google.com → not Accepted
+
+I tried to think for a way to write javascript and the URL together and get the javascript run.
+
+I tried to add %0a%0d which adds a newline but redirected to a forbidden page.
+
+I started thinking of adding the whitelisted website as a variable then add a semicolon which terminates javascript line but the website doesn’t accept adding a semicolon to this parameter and redirects me to the homepage instead as the URL must be after the scheme directly not after var url=whitelistedWebsite.com.
+
+I tried to enter javascript:/whitelistedWebsite.com/i as a value of parameter “dest” and found out that parameter not only accepts schemes like(http://, ftp://) but also accept http:/ and javascript:/.
+
+after that Regex immediately came to my thought for those who don’t know about regex it is a sequence of characters that define a search pattern and can be used at almost any programming language.
+
+    /intersticial.aspx?dest=javascript:/whitelistedWebsite.com/i;alert(document.domain)
+
+then website refused the request as it includes a semicolon and I want to put anything to separate this two valid javascript statement to be able to execute JS. then I tried to add another parameter with the same name “dest “
+
+so the URL became
+
+    <redacted>intersticial.aspx?dest=javascript:/whitelistedWebsite.com/i&dest=
+ 
+Then I noticed that there is a comma added to the URL then added an alert function on the second parameter value and once I clicked acceptar
+
+the final URL: 
+
+    <redacted>intersticial.aspx?dest=javascript:/whitelistedWebsite.com/i&dest=alert(1)
+    
+Conclusion:
+
+    may HTTP parameter pollution don’t lead to serious harm but can help on a bypass that may reach you to P1 or P2 vulnerability. if you find that a parameter accepts redirect to javascript://website.com then you should never lose hope and keep searching!
+
 - [MIME  sniffing XSS](https://www.komodosec.com/post/mime-sniffing-xss)
 - [Stored XSS on techprofile Microsoft  ](https://medium.com/@kang_ali/stored-xss-on-techprofile-microsoft-d21757588cc1)
 - [Tale of a wormable Twitter XSS](https://www.virtuesecurity.com/tale-of-a-wormable-twitter-xss/)

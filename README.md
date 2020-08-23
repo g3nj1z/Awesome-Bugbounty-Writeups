@@ -248,6 +248,27 @@ So on feedback.example.com/feedback we can left feedback, it forwards to another
 - [XSS in ZOHO main](https://www.hackerinside.me/2019/09/xss-in-zoho-mail.html)
 - [DOM based XSS in private program](https://www.mohamedharon.com/2019/09/dom-based-xss-in-private-program.html)
 - [Bugbounty writeup : Take Attention and get stored XSSS](https://medium.com/@04sabsas/bugbounty-writeup-take-attention-and-get-stored-xss-495dd6eab07e)
+
+Let’s imagine that we have a Web Application “WA”, that allows you to create users, companies and invite users to the company.
+
+The functional of inviting worked like this — the user received a letter in the mail, where it was said: “You were invited to join company 
+
+As the site allowed us to name of company contain “<> etc — I put the name of company as:
+
+    lekssik"><h1>xd</h1>
+    
+And you know what… I got such invite on email:
+
+### xd
+
+So I got such things earlier, and in principle… we can already report at this point, since this allows us to generate HTML messages by mail and send on behalf of the web application. (I used to find such a vulnerability on the site of one mobile giant, there we could change some parameters in the post request for registration, and then the link to confirm the account came with a broken HTML).
+
+But… I sat on the site a little more and found that the site has internal notifications that you were invited — and when you go to the notification page — a window appears that says about the invitation. And you know what? They also did not filter html on this page :))))))
+
+Sooo, lets register comapany a”><svg\onload=alert(1)> and — for all the users that we invite — they receive notifications about the invitation, thereby activating the Stored XSS.
+
+    While I was writing this WriteUp, I suddenly started to feel sorry for myself too — I remembered the #bugbountytips from intigrity — and there was a picture like “Found SSRF — exploit RCE, found Self-XSS — exploit Stored XSS with the help of CSRF, Found Stored XSS — exploit Account Takeover”. And only now I realized that I could work a little more and get much more, even P1. I hope you do not repeat my mistakes, always take the maximum impact from any vulnerability!
+
 - [How I xssed admin account ](https://gauravnarwani.com/how-i-xssed-admin-account/)
 - [Clickjacking XSS on google ](https://websecblog.com/vulns/clickjacking-xss-on-google-org/)
 - [Stored XSS on laporbugid](https://learn.hackersid.com/2019/08/stored-xss-on-laporbugid.html)

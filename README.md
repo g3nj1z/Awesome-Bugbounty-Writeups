@@ -2,21 +2,21 @@
 
 ## Contents 
 
- - [Cross Site Scripting (XSS)](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#cross-site-scripting-xss)
- - [Cross Site Request Forgery (CSRF)](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#cross-site-request-forgery-csrf)
- - [Clickjacking (UI Redressing Attack)](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#clickjacking-ui-redressing-attack)
- - [Local File Inclusion (LFI)](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#local-file-inclusion-lfi)
- - [Subdomain Takeover](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#subdomain-takeover)
- - [Denial of Service (DOS)](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#denial-of-service-dos)
- - [Authentication Bypass](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#authentication-bypass)
- - [SQL injection](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#sql-injectionsqli) 
- - [2FA Related issues](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#2fa-related-issues) 
- - [CORS Related issues](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#cors-related-issues)
- - [Server Side Request Forgery (SSRF)](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups/blob/master/README.md#server-side-request-forgery-ssrf)
- - [Race Condition](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups/blob/master/README.md#race-condition)
- - [Remote Code Execution (RCE)](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#remote-code-execution-rce)  
- - [Contributing](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#contributing)
- - [Maintainers](https://github.com/devanshbatham/Awesome-Bugbounty-Writeups#maintainers)
+ - [Cross Site Scripting (XSS)](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#cross-site-scripting-xss)
+ - [Cross Site Request Forgery (CSRF)](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#cross-site-request-forgery-csrf)
+ - [Clickjacking (UI Redressing Attack)](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#clickjacking-ui-redressing-attack)
+ - [Local File Inclusion (LFI)](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#local-file-inclusion-lfi)
+ - [Subdomain Takeover](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#subdomain-takeover)
+ - [Denial of Service (DOS)](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#denial-of-service-dos)
+ - [Authentication Bypass](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#authentication-bypass)
+ - [SQL injection](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#sql-injectionsqli) 
+ - [2FA Related issues](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#2fa-related-issues) 
+ - [CORS Related issues](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#cors-related-issues)
+ - [Server Side Request Forgery (SSRF)](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups/blob/master/README.md#server-side-request-forgery-ssrf)
+ - [Race Condition](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups/blob/master/README.md#race-condition)
+ - [Remote Code Execution (RCE)](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#remote-code-execution-rce)  
+ - [Contributing](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#contributing)
+ - [Maintainers](https://github.com/g3nj1z/Awesome-Bugbounty-Writeups#maintainers)
 
 
 

